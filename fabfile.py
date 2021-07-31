@@ -142,7 +142,7 @@ def _make_virtualhost():
             Require all granted
         </Files>
     </Directory>
-    WSGIDaemonProcess {PROJECT_NAME} python-home=/home/{REMOTE_USER}/.virtualenvs/{PROJECT_NAME} python-path=/home/{REMOTE_USER}/{project_name}
+    WSGIDaemonProcess {PROJECT_NAME} python-home=/home/{REMOTE_USER}/.virtualenvs/{PROJECT_NAME} python-path=/home/{REMOTE_USER}/{PROJECT_NAME}
     WSGIProcessGroup {PROJECT_NAME}
     WSGIScriptAlias / /home/{REMOTE_USER}/{PROJECT_NAME}/wsgi.py
     
