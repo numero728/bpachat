@@ -145,6 +145,7 @@
           var msg = encodeURI($("[name=message]").val().trim());
           socket.emit("c_msg", { user: user, msg: msg });
           $("[name=message]").val("");
+          console.log('키 이벤트');
         }
       });
 
@@ -153,6 +154,7 @@
         var msg = encodeURI($("[name=message]").val().trim());
         socket.emit("c_msg", { user: user, msg: msg });
         $("[name=message]").val("");
+        console.log('버튼 이벤트')
       });
 
   // 4. 메시지 수신 처리    
@@ -193,7 +195,7 @@
       
       // 4-4. 스크롤 다운
         $("#scroll_area").scrollTop($("#scroll_area")[0].scrollHeight);
-
+        console.log("수신 이벤트")
       })
 
   </script>
