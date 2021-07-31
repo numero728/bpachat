@@ -161,7 +161,7 @@ def _make_virtualhost():
     sudo(f'a2ensite {PROJECT_NAME}.conf')
 
     # 디폴트 비활성화
-    run(f"echo '{REMOTE_PASSWD}' | sudo -S a2dissite /etc/apache2/sites-available/000-default.conf")
+    # run(f"echo '{REMOTE_PASSWD}' | sudo -S a2dissite /etc/apache2/sites-available/000-default.conf")
 
 # -------------------------------------------------------------------
 # 아파치 서버 권한 설정
