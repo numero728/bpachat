@@ -21,3 +21,5 @@
 [Send] ags msg:adstesav timestamp:2021-07-31 18:35:55
 [Connected] ags timestamp:2021-07-31 18:36:04
 [Connected] ags timestamp:2021-07-31 18:36:20
+[Connected] dssdg timestamp:2021-07-31 21:31:30
+[Connected] dgsgds timestamp:2021-07-31 21:31:47
