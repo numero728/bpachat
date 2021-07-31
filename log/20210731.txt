@@ -5,3 +5,9 @@
 [Connected] sda timestamp:2021-07-31 14:46:48
 [Send] sda msg:sag timestamp:2021-07-31 14:46:52
 [Send] sda msg:ashfadhaer timestamp:2021-07-31 14:46:53
+[Connected] sda timestamp:2021-07-31 14:47:05
+[Connected] afa timestamp:2021-07-31 14:51:22
+[Send] afa msg:sasdgsda timestamp:2021-07-31 14:51:24
+[Send] afa msg:salkgmsdakl timestamp:2021-07-31 14:51:25
+[Send] afa msg:xlkjvlzxcjopwe timestamp:2021-07-31 14:51:26
+[Send] afa msg:ad;am;l timestamp:2021-07-31 14:51:28

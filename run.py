@@ -32,11 +32,6 @@ def log_read(now_date):
     except:
         data.append(('System','오늘의 첫 메시지입니다.'))
     return data
-
-
-
-
-   
             
     
 # app 호출
