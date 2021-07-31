@@ -1,8 +1,6 @@
 ﻿from flask import Flask, render_template,request,jsonify
 from flask_socketio import SocketIO, emit
 from werkzeug.utils import redirect
-import pandas as pd
-import numpy as np
 import re
 import os
 from datetime import datetime
