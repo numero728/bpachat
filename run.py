@@ -1,4 +1,4 @@
-﻿from flask import Flask, render_template,request,jsonify
+﻿from flask import Flask, render_template,request,flash
 from flask_socketio import SocketIO, emit
 from werkzeug.utils import redirect
 import re
@@ -60,9 +60,11 @@ if True:
         log_msg=(f'[Send] {user} msg:{msg} timestamp:{now}')
         emit('s_msg', {'user': user, 'msg': msg}, broadcast=True)
         log(now,unquote(log_msg))
+        flash("전화 받으세요 씨발")
 
     @socketio.on('disconnect')
     def disconnect():
+        flash("끊김 씨발")
         pass
 
 
