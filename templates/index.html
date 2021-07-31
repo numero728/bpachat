@@ -130,12 +130,12 @@
   
   // 2. 소켓 연결
     // 2-1. url 설정
-      var url = window.location.href;
+      var url = 'http://' + document.domain + ':' + location.port;
       console.log('step 1: 주소 설정')
       console.log(url)
       
     // 2-2. 소켓 연결
-      socket = io.connect(url+`?user=${user}`);
+      var socket = io.connect(url+`?user=${user}`);
       console.log('step 2: 소켓 연결')
 
       // 3. 메시지 발신 처리

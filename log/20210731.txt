@@ -31,3 +31,12 @@
 [Send] asvd msg:savav timestamp:2021-07-31 21:37:53
 [Send] asvd msg:webweab timestamp:2021-07-31 21:37:55
 [Connected] asvd timestamp:2021-07-31 21:37:59
+[Connected] fdscarew timestamp:2021-07-31 21:43:50
+[Send] fdscarew msg:cweceawvwe timestamp:2021-07-31 21:43:54
+[Send] fdscarew msg:xvxwe timestamp:2021-07-31 21:43:57
+[Connected] fdscarew timestamp:2021-07-31 21:45:27
+[Connected] fdscarew timestamp:2021-07-31 21:46:50
+[Connected] fdscarew timestamp:2021-07-31 21:48:00
+[Connected] fdscarew timestamp:2021-07-31 21:48:00
+[Connected] hd timestamp:2021-07-31 23:15:45
+[Send] hd msg:ynt5 timestamp:2021-07-31 23:15:49

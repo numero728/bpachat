@@ -71,22 +71,53 @@ if True:
 def setup():
     # os 업데이트
     _get_latest_apt()
+    print('\n'*3)
+    print('apt update and upgrade done...')
+    print('\n'*3)
 
     # apt 패키지 설치
     _install_apt_requirements(apt_requirements)
+    print('\n'*3)
+    print('install apt packages done...')
+    print('\n'*3)
 
     # flask 구동 필요한 가상환경 구축
     _make_virtualenv()
-
+    print('\n'*3)
+    print('make virtualenv done...')
+    print('\n'*3)
 # -------------------------------------------------------------------
 # deploy
 def deploy():
     _get_latest_source()
-    _update_virtualenv()
-    _make_virtualhost()
-    _grant_apache2()
-    _restart_apache2()
+    print('\n'*3)
+    print('get latest git done...')
+    print('\n'*3)
 
+    _update_virtualenv()
+    print('\n'*3)
+    print('update virtualenv done...')
+    print('\n'*3)
+
+    _make_virtualhost()
+    print('\n'*3)
+    print('make virtualhost done...')
+    print('\n'*3)
+
+    _grant_apache2()
+    print('\n'*3)
+    print('grant apache2 done...')
+    print('\n'*3)
+
+    _restart_apache2()
+    print('\n'*3)
+    print('restart apache done...')
+    print('\n'*3)
+
+    _ufw_allow()
+    print('\n'*3)
+    print('ufw allow done...')
+    print('\n'*3)
 # -------------------------------------------------------------------
 # 최신 버전 apt로 업데이트
 def _get_latest_apt():
@@ -109,6 +140,7 @@ def _install_apt_requirements(apt_requirements):
 def _make_virtualenv():
     # 현재 디렉토리에 대해 소유권 선언
     sudo(f'chown {REMOTE_USER} ~/')
+    sudo(f'chmod -R 775 ~/')
 
     # 기존 가상환경 존재하는지 확인
     # 기존 가상환경 없으면 신규로 생성
@@ -125,9 +157,12 @@ def _make_virtualenv():
                     export VIRTUALENVWRAPPER_PYTHON="$(command \\which python3)"  # location of python3
                     source /usr/local/bin/virtualenvwrapper.sh"'''
         
-        # .bashrc 실행
+        # .bashrc 수정
         run(f'echo {script} >> ~/.bashrc')
-        
+
+        # .bashrc 실행       
+        run(f'bash /home/{REMOTE_USER}/.bashrc')
+
 # -------------------------------------------------------------------
 # 방화벽 허용      
 def _ufw_allow():
