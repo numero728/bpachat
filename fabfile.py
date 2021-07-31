@@ -107,6 +107,9 @@ def _install_apt_requirements(apt_requirements):
 # -------------------------------------------------------------------
 # 가상환경 생성
 def _make_virtualenv():
+    # 현재 디렉토리에 대해 소유권 선언
+    sudo(f'chown {REMOTE_USER} ~/')
+
     # 기존 가상환경 존재하는지 확인
     # 기존 가상환경 없으면 신규로 생성
     if not exists('~/.virtualenvs'):
