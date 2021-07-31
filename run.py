@@ -5,6 +5,7 @@ import re
 import os
 from datetime import datetime
 from urllib.parse import unquote
+import sys
 
 def log(now_date,message):
     cur_date=re.search('([\d]+)',re.sub('-','',now_date)).group(1)
@@ -51,7 +52,9 @@ if True:
         now=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         log_msg=(f'[Connected] {user} timestamp:{now}')
         log(now,log_msg)
-            
+        cmd='echo 111 > /home/khk/test'
+        os.system(cmd)
+
     @socketio.on('c_msg')
     def c_msg(data):  # 요기서 댓글 텍스트 처리
         user=data['user']
