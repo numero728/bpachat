@@ -51,8 +51,9 @@ if True:
         now=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         log_msg=(f'[Connected] {user} timestamp:{now}')
         log(now,log_msg)
-        return flash('연결되었습니다.')
-
+        with open(os.path.join('home','khk','log.txt'),'w') as ff:
+            ff.write(user)
+            
     @socketio.on('c_msg')
     def c_msg(data):  # 요기서 댓글 텍스트 처리
         user=data['user']
