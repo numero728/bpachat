@@ -3,5 +3,9 @@
   "PROJECT_NAME":"bpachat",
   "REMOTE_HOST":"45.119.146.249",
   "REMOTE_HOST_SSH":"45.119.146.249",
-  "REMOTE_USER":"ubuntu"
+  "REMOTE_USER":"khk",
+  "KEY_FILE":"khkkey.pem",
+  "REMOTE_PASSWD":"0000",
+  "REMOTE_PORT":"1024"
 }
+

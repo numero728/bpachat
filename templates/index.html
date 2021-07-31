@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<style>
+  @import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+  /* font-family: 'Jeju Gothic', serif; */
+  @import url(http://fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+  /* font-family: 'Nanum Pen Script', serif; */
+  @import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+  /* font-family: 'Hanna', serif; */
+  @import url(http://fonts.googleapis.com/earlyaccess/nanumbrushscript.css);
+  /* font-family: 'Nanum Brush Script', serif; */
+  @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+  /* font-family: 'Nanum Gothic', serif; */
+  @import url(http://fonts.googleapis.com/earlyaccess/jejuhallasan.css);
+  /* font-family: 'Jeju Hallasan', serif; */
+</style>
+<html lang="en">
+<head>
+
+  <!-- CDN -->
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    
+    <!-- socket -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+
+    <!-- Bootstrap 4 -->
+    <script src="static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- AdminLTE App -->
+    <script src="static/dist/js/adminlte.min.js"></script>
+
+  <!-- meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- title -->
+    <title>TEST PROJECT</title>
+
+  <!-- style -->
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="static/plugins/fontawesome-free/css/all.min.css">
+  
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="static/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  
+    <!-- Theme style -->
+    <link rel="stylesheet" href="static/dist/css/adminlte.min.css">
+<script>
+  var user=prompt('성함을 입력하세요.')
+  console.log(user)
+</script>
+</head>
+
+<body>
+
+
+
+  <!-- container -->
+  <div class='container-fluid col-md-12'>
+
+    <!-- container header -->
+    <div class='content_header d-flex justify-content-center'>
+      <div class="login-logo">
+        <!-- 버전 정의 -->
+
+        <b style="color: brown; font-family: HANNA;">테스트 채팅룸</b></a>
+      </div>    
+    </div>
+
+    <!-- card -->
+    <div class="card direct-chat d-flex justify-content-center col-md-9 mx-auto">
+      
+      <!-- card header -->
+      <div class="card-header ">
+        <h3 class="card-title">Chat</h3>
+        
+        <!-- stop keyword button -->
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" title="Contacts" data-widget="chat-pane-toggle" onclick="$('#scroll_area').animate({scrollTop : 0}, 10)">
+            <i class="fas fa-ban"></i>
+          </button>
+        </div>  
+      </div>
+
+      <!-- card body -->
+      <div class="card-body" id="scroll_area" style="height: 500px;scroll-behavior:smooth">
+        
+        <!-- message box -->
+        <div class="direct-chat-messages"  style="height: auto;">
+<span id='chatbox'>
+          {% for t in texts %}
+        <div class="direct-chat-msg">
+          <div class="direct-chat-infos clearfix">
+            <span class="direct-chat-name float-left">{{t[0]}}</span>
+          </div>
+          <img class="direct-chat-img" src="static/dist/img/unknown.png" alt="message user image">
+          <div class="direct-chat-text">
+            {{t[1]}}
+          </div>
+        </div>
+{%endfor%}
+</span>
+
+      <!-- card footer -->
+      <div class="card-footer">
+        <form action="#" method="post" onsubmit="return false;">
+          <div class="input-group">
+            <input type="text" type='hidden' name="message" placeholder="메시지를 입력하세요 ..." class="form-control">
+            <input type='hidden'/>
+            <span class="input-group-append">
+              <button id='send_btn' type="button" class="btn btn-primary">Send</button>
+            </span>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 채팅 기능 구현 -->
+  <script>
+  // 1. 변수 초기화
+    var trigger = false;
+    var socket = "";
+    var msg = "";
+    var msg_trigger = "0";
+  
+  // 2. 소켓 연결
+    // 2-1. url 설정
+      url = "http://" + document.domain + ":" + location.port;
+  
+    // 2-2. 소켓 연결
+      console.log('대기')
+      socket = io.connect(url+`?user=${user}`);
+      console.log(user)
+    
+  // 3. 메시지 발신 처리
+    // 3-1. 키보드 입력 이벤트 처리
+      $("[name=message]").on("keypress", (evt) => {
+        if (evt.keyCode == 13) {
+          var msg = encodeURI($("[name=message]").val().trim());
+          socket.emit("c_msg", { user: user, msg: msg });
+          $("[name=message]").val("");
+        }
+      });
+
+    // 3-2. 전송 버튼 클릭 이벤트 처리
+      $("#send_btn").on("click", () => {
+        var msg = encodeURI($("[name=message]").val().trim());
+        socket.emit("c_msg", { user: user, msg: msg });
+        $("[name=message]").val("");
+      });
+
+  // 4. 메시지 수신 처리    
+    socket.on("s_msg", (data) => {
+      var sender = decodeURI(data.user);
+      var msg = decodeURI(data.msg);
+      // console.log(sender);
+      // console.log(username)
+      // 4-1. 타인이 보낸 메시지를 화면에 출력하는 경우 
+        if (sender != decodeURI(user)) {
+          var msghtml = `
+            <div class="direct-chat-msg">
+              <div class="direct-chat-infos clearfix">
+                <span class="direct-chat-name float-left">${sender}</span>
+              </div>
+              <img class="direct-chat-img" src="static/dist/img/unknown.png" alt="message user image">
+              <div class="direct-chat-text">
+                ${msg}
+              </div>
+            </div>`
+
+      // 4-2. 내가 보낸 메시지를 화면에 출력하는 경우
+        } else {
+          var msghtml = `
+            <div class="direct-chat-msg right">
+              <div class="direct-chat-infos clearfix">
+                <span class="direct-chat-name float-right">${sender}</span>
+              </div>
+              <img class="direct-chat-img" src="static/dist/img/unknown.png" alt="message user image">
+              <div class="direct-chat-text">
+                ${msg}
+              </div>
+            </div>`
+        }
+      console.log(sender)
+      // 4-3. 화면에 메시지 추가
+        $("#chatbox").append(msghtml);
+      
+      // 4-4. 스크롤 다운
+        $("#scroll_area").scrollTop($("#scroll_area")[0].scrollHeight);
+
+      })
+
+  </script>
+</body>
+
+</html>

@@ -6,7 +6,7 @@ if True:
     # -------------------------------------------------------------------
     # 모듈 import
     if True:
-        from fabric.contrib.files import append, exists, sed, put
+        from fabric.contrib.files import exists
         from fabric.api import env, local, run, sudo
         import os
         import json
@@ -20,11 +20,13 @@ if True:
         envs                =   json.load(open(os.path.join(PROJECT_DIR,'deploy.json')))
 
         REPO_URL            =   envs['REPO_URL']
-        PROJECT_NAME        =   envs['PRJECT_NAME']
+        PROJECT_NAME        =   envs['PROJECT_NAME']
         REMOTE_HOST         =   envs['REMOTE_HOST']
         REMOTE_HOST_SSH     =   envs['REMOTE_HOST_SSH']
         REMOTE_USER         =   envs['REMOTE_USER']
         KEY_FILE            =   envs['KEY_FILE']
+        REMOTE_PASSWD       =   envs['REMOTE_PASSWD']
+        REMOTE_PORT         =   envs['REMOTE_PORT']
 
     # -------------------------------------------------------------------
     # 환경변수 설정
@@ -32,7 +34,9 @@ if True:
         env.user            =   REMOTE_USER
         env.hosts           =   [REMOTE_HOST_SSH]
         env.use_ssh_config  =   True
-        env.key_filename    =   KEY_FILE
+        env.key_filename    =   os.path.join('..',KEY_FILE)
+        env.password        =   REMOTE_PASSWD
+        env.port            =   REMOTE_PORT
 
     # -------------------------------------------------------------------
     # 원격지의 프로젝트 폴더 주소 설정
