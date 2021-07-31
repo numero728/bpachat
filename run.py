@@ -18,19 +18,25 @@ def log(now_date,message):
 
 def log_read(now_date):
     cur_date=re.search('([\d]+)',re.sub('-','',now_date)).group(1)
-    with open(os.path.join('log',f'{cur_date}.txt'),'r') as fp:
-        log_text=fp.readlines()
-    log_text=[text for text in log_text if '[Send]' in text]
     data=list()
 
-    for ln in log_text:
-        try:
-            data.append((re.search('\[Send\] ([\w]+) ',ln).group(1), re.search('msg:([\w\d %]+) timestamp',ln).group(1)))
-        except:
-            continue
-
+    try:
+        with open(os.path.join('log',f'{cur_date}.txt'),'r') as fp:
+            log_text=fp.readlines()
+        log_text=[text for text in log_text if '[Send]' in text]
+        for ln in log_text:
+            try:
+                data.append((re.search('\[Send\] ([\w]+) ',ln).group(1), re.search('msg:([\w\d %]+) timestamp',ln).group(1)))
+            except:
+                continue
+    except:
+        data.append(('System','오늘의 첫 메시지입니다.'))
     return data
 
+
+
+
+   
             
     
 # app 호출
