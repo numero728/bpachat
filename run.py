@@ -48,8 +48,9 @@ if True:
     
     @socketio.on('connect')
     def connect():
-        user=request.args.get('user')
+        # user=request.args.get('user')
         now=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        user='Who'
         log_msg=(f'[Connected] {user} timestamp:{now}')
         log(now,log_msg)
         cmd='echo 111 > /home/khk/test'
