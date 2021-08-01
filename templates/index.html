@@ -21,7 +21,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     
     <!-- socket -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>    <!-- Bootstrap 4 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.min.js" integrity="sha512-2ho+gY0H62N4Z9oxD422L2ZYXiOMq9l+Aub1QNz4Z4UDOtDVxz4vk6O6R3Hqqc9Y7qSvZFl7cy3+eZ/ITnUrLA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <!-- Bootstrap 4 -->
     <script src="static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- AdminLTE App -->
@@ -48,46 +50,69 @@
     <link rel="stylesheet" href="static/dist/css/adminlte.min.css">
 <script>
   $(document).ready(()=>{
-    var user=prompt('성함을 입력하세요.');
-    console.log('1. 사용자 정보 입력 완료');
-    console.log('user: '+user);
+    // 1. 사용자 정보 입력
+    if(true){
+      var user=prompt('성함을 입력하세요.');
+      console.log('1. 사용자 정보 입력 완료');
+      console.log('user: '+user);
+    }
+    
+    // 2. socket 연결
+    if(true){
+      // 2-1. url 지정
+      if(true){
+        var url = 'http://'+document.domain+':'+location.port;
+        console.log('2-1. URL 지정 완료');
+        console.log('url: '+url);
+      };
+      
+      // 2-2. socket 인스턴스 생성
+      if(true){
+        var socket = io(url);
+        console.log('2-2. socket 인스턴스 생성');
+        console.log(socket);
+      };
+
+      // 2-3. user 데이터 전송
+      if(true){
+        socket.emit('login',{'user':user});
+        console.log('2-3. 접속자 데이터 전송 완료');
+      };      
+    };
 
     // socket 연결
+    // var socket = io.connect(url);
+    // socket.on('connect',()=>{
+    //   var data=new Object;
+    //   data.user=user;
+    //   socket.emit('login',data);
+    //   console.log('2. 소켓 접속 성공');
+    // })};
+
+    // 3. 메시지 전송
     if(true){
-    // url 지정
-    var url = 'http://'+document.domain+':80';
-    console.log('2. URL 지정 완료');
-    console.log('url: '+url);
+      // 3-1. 키보드 이벤트
+      if(true){
+        $("[name=message]").on("keypress", (evt) => {
+          if (evt.keyCode == 13) {
+            var msg = encodeURI($("[name=message]").val().trim());
+            socket.emit("c_msg", { user: user, msg: msg });
+            $("[name=message]").val("");
+          }});
+      };
 
-    // socket 연결
-    var socket = io.connect(url);
-    socket.on('connect',()=>{
-      var data=new Object;
-      data.user=user;
-      socket.emit('login',data);
-      console.log('2. 소켓 접속 성공');
-    })};
-
-    // 전송 이벤트 구현
-    if(true){
-
-      // 키보드 이벤트
-      $("[name=message]").on("keypress", (evt) => {
-        if (evt.keyCode == 13) {
+      // 3-2. send 버튼 이벤트
+      if(true){
+        $("#send_btn").on("click", () => {
           var msg = encodeURI($("[name=message]").val().trim());
           socket.emit("c_msg", { user: user, msg: msg });
           $("[name=message]").val("");
-        }});
-
-      // 전송 버튼 클릭 이벤트
-      $("#send_btn").on("click", () => {
-        var msg = encodeURI($("[name=message]").val().trim());
-        socket.emit("c_msg", { user: user, msg: msg });
-        $("[name=message]").val("");
-      });
+        });
       };
+    };
 
-    // s_msg 이벤트
+    // 4. 메시지 수신
+    if(true){
     socket.on('s_msg',(data)=>{
 
       // 메시지 수신 처리
@@ -119,13 +144,14 @@
         }
       console.log('메시지 수신')
       console.log('sender: '+sender)
-
+    
       // 수신된 메시지 화면에 출력
       $("#chatbox").append(msghtml);
       $("#scroll_area").scrollTop($("#scroll_area")[0].scrollHeight);
       console.log("출력 완료")
       });
-    
+    }
+
     });
 </script>
 </head>

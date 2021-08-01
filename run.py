@@ -25,7 +25,7 @@ if True:
     @socketio.on('login')
     def login(data):
         user=data['user']
-        print(user)
+        emit('s_msg',{'user':'system','msg':f'{user}님 환영합니다.'})
         
     @socketio.on('c_msg')
     def c_msg(data):
@@ -34,10 +34,9 @@ if True:
         now=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         emit('s_msg', {'user': user, 'msg': msg}, broadcast=True)
 
-    # @socketio.on('disconnect')
-    # def disconnect():
-    #     flash("끊김 씨발")
-    #     pass
+    @socketio.on('disconnect')
+    def disconnect():
+        pass
 
 
 @app.route('/')
@@ -51,4 +50,4 @@ def logpage():
     return now
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True,port=80)
+    socketio.run(app, debug=True)
