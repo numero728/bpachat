@@ -20,7 +20,7 @@ if True:
     
     @socketio.on('connect')
     def connect():
-       pass
+        emit('s_msg',{'user':'system','msg':'정상적으로 접속되었습니다.'})
 
     @socketio.on('login')
     def login(data):
