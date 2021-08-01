@@ -53,23 +53,26 @@ if True:
         user='Who'
         log_msg=(f'[Connected] {user} timestamp:{now}')
         log(now,log_msg)
-        cmd='echo 111 > /home/khk/test'
-        os.system(cmd)
+        # cmd='echo 111 > /home/khk/test'
+        # os.system(cmd)
+    # @socketio.on('login')
+    # def login(user):
+        
 
-    @socketio.on('c_msg')
-    def c_msg(data):  # 요기서 댓글 텍스트 처리
-        user=data['user']
-        msg=data['msg']
-        now=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        log_msg=(f'[Send] {user} msg:{msg} timestamp:{now}')
-        emit('s_msg', {'user': user, 'msg': msg}, broadcast=True)
-        log(now,unquote(log_msg))
-        flash("전화 받으세요")
+    # @socketio.on('c_msg')
+    # def c_msg(data):  # 요기서 댓글 텍스트 처리
+    #     user=data['user']
+    #     msg=data['msg']
+    #     now=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    #     log_msg=(f'[Send] {user} msg:{msg} timestamp:{now}')
+    #     emit('s_msg', {'user': user, 'msg': msg}, broadcast=True)
+    #     log(now,unquote(log_msg))
+    #     flash("전화 받으세요")
 
-    @socketio.on('disconnect')
-    def disconnect():
-        flash("끊김 씨발")
-        pass
+    # @socketio.on('disconnect')
+    # def disconnect():
+    #     flash("끊김 씨발")
+    #     pass
 
 
 @app.route('/')
