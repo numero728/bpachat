@@ -54,7 +54,13 @@
 
     // socket 연결
     if(true){
-    var socket = io.connect('http://'+document.domain+':'+location.port);
+    // url 지정
+    var url = 'http://'+document.domain+':'+location.port;
+    console.log('2. URL 지정 완료');
+    console.log('url: '+url);
+
+    // socket 연결
+    var socket = io.connect(url);
     socket.on('connect',()=>{
       var data=new Object;
       data.user=user;
