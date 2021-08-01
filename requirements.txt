@@ -1,5 +1,5 @@
-flask==1.1.2
-Flask-SocketIO==4.3.2
+Flask
+Flask-SocketIO
 lxml==4.6.2
 urllib3==1.25.11
 Flask-SocketIO==4.3.1
