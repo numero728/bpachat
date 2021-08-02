@@ -20,7 +20,8 @@ if True:
     
     @socketio.on('connect')
     def connect():
-        emit('s_msg',{'user':'system','msg':'정상적으로 접속되었습니다.'})
+        value=jsonify({'user':'system','msg':'정상적으로 접속되었습니다.'})
+        emit('s_msg',value,broadcast=True)
 
     @socketio.on('login')
     def login(data):
