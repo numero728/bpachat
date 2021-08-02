@@ -20,13 +20,13 @@ if True:
     
     @socketio.on('connect')
     def connect():
-        value=jsonify({'user':'system','msg':'정상적으로 접속되었습니다.'})
-        emit('s_msg',value,broadcast=True)
+        value={'user':'system','msg':'정상적으로 접속되었습니다.'}
+        emit('s_msg',value)
 
     @socketio.on('login')
     def login(data):
         user=data['user']
-        value=jsonify({'user':'system','msg':f'{user}님 환영합니다.'})
+        value={'user':'system','msg':f'{user}님 환영합니다.'}
         emit('s_msg',value)
         
     @socketio.on('c_msg')
@@ -45,11 +45,6 @@ if True:
 def chat():
     now=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     return render_template('index.html')
-
-@app.route('/log')
-def logpage():
-    now=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    return now
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)
