@@ -54,21 +54,20 @@
     if(true){
       // 2-1. url 지정
       if(true){
-        var url = 'http://'+document.domain;
+        var url = location.protocol+'//'+document.domain+':'+location.port;
         console.log('2-1. URL 지정 완료');
         console.log('url: '+url);
       };
       
       // 2-2. socket 인스턴스 생성
       if(true){
-        var socket = io(url);
-        console.log('2-2. socket 인스턴스 생성');
+        var socket = io.connect(url);
+        console.log('2-2. socket 인스턴스 접속');
         console.log(socket);
       };
 
       // 2-3. user 데이터 전송
       if(true){
-        console.log('socket 접속 시도')
         socket.on('connect',()=>{
           socket.emit('login',{'user':user});
           console.log('socket 접속 성공');
