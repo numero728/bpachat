@@ -1,4 +1,4 @@
-﻿from flask import Flask, render_template,request,flash
+﻿from flask import Flask, render_template,request,flash,jsonify
 from flask_socketio import SocketIO, emit
 from werkzeug.utils import redirect
 import re
@@ -25,7 +25,8 @@ if True:
     @socketio.on('login')
     def login(data):
         user=data['user']
-        emit('s_msg',{'user':'system','msg':f'{user}님 환영합니다.'})
+        value=jsonify({'user':'system','msg':f'{user}님 환영합니다.'})
+        emit('s_msg',value)
         
     @socketio.on('c_msg')
     def c_msg(data):
