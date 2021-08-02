@@ -18,4 +18,4 @@ sys.stdout = sys.stderr
 sys.path.insert( 0, cur_dir )
 
 # 서버 가동을 위한 모듈 가져오기
-from run import app as application
+from run import socketio as application
