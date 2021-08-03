@@ -19,7 +19,7 @@ if True:
     
     @socketio.on('connect',namespace='/chatroom')
     def connect():
-        value={'user':'system','msg':'정상적으로 접속되었습니다.'}
+        value={'user':'system','msg':'정상적으로 접속되었습니다.',}
         emit('s_msg',value)
 
     @socketio.on('login')
