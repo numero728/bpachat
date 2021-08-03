@@ -66,6 +66,7 @@
             var msg = encodeURI($("[name=message]").val().trim());
             socket.emit("c_msg", { user: user, msg: msg });
             $("[name=message]").val("");
+            console.log('키보드 프레스');
           }})};
 
       // 3-2. send 버튼 이벤트
@@ -74,6 +75,7 @@
           var msg = encodeURI($("[name=message]").val().trim());
           socket.emit("c_msg", { user: user, msg: msg });
           $("[name=message]").val("");
+          console.log('버튼 클릭');
         })};
       };
 </script>
@@ -133,7 +135,7 @@
       <div class="login-logo">
         <!-- 버전 정의 -->
 
-        <b style="color: brown; font-family: HANNA;">테스트 채팅룸</b></a>
+        <b style="color: brown; font-family: HANNA;">BPA 인턴</b></a>
       </div>    
     </div>
 
@@ -158,17 +160,14 @@
         <!-- message box -->
         <div class="direct-chat-messages"  style="height: auto;">
 <span id='chatbox'>
-          {% for t in texts %}
         <div class="direct-chat-msg">
           <div class="direct-chat-infos clearfix">
-            <span class="direct-chat-name float-left">{{t[0]}}</span>
+            <span class="direct-chat-name float-left"></span>
           </div>
           <img class="direct-chat-img" src="static/dist/img/unknown.png" alt="message user image">
           <div class="direct-chat-text">
-            {{t[1]}}
           </div>
         </div>
-{%endfor%}
 </span>
 
       <!-- card footer -->
