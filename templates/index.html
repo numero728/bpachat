@@ -30,8 +30,9 @@
       var user=prompt('성함을 입력하세요.');
       console.log('1. 사용자 정보 입력 완료');
       console.log('user: '+user);
-    }
-    
+    }});
+</script>
+<script type="text/javascript" charset="utf-8">
     // 2. socket 연결
     if(true){
       // 2-1. url 지정
@@ -54,21 +55,10 @@
           socket.emit('login',{'user':user});
           console.log('socket 접속 성공');
           console.log('2-3. 접속자 데이터 전송 완료');
-        });
-
-      };      
+        })};      
     };
-
-    // socket 연결
-    // var socket = io.connect(url);
-    // socket.on('connect',()=>{
-    //   var data=new Object;
-    //   data.user=user;
-    //   socket.emit('login',data);
-    //   console.log('2. 소켓 접속 성공');
-    // })};
-
-    // 3. 메시지 전송
+</script>
+<script type="text/javascript" charset="utf-8">
     if(true){
       // 3-1. 키보드 이벤트
       if(true){
@@ -77,8 +67,7 @@
             var msg = encodeURI($("[name=message]").val().trim());
             socket.emit("c_msg", { user: user, msg: msg });
             $("[name=message]").val("");
-          }});
-      };
+          }})};
 
       // 3-2. send 버튼 이벤트
       if(true){
@@ -86,14 +75,13 @@
           var msg = encodeURI($("[name=message]").val().trim());
           socket.emit("c_msg", { user: user, msg: msg });
           $("[name=message]").val("");
-        });
+        })};
       };
-    };
-
+</script>
+<script>
     // 4. 메시지 수신
     if(true){
     socket.on('s_msg',(data)=>{
-
       // 메시지 수신 처리
       var sender = decodeURI(data.user);
       var msg = decodeURI(data.msg);
@@ -108,8 +96,7 @@
               ${msg}
             </div>
           </div>`
-       }
-      else {
+      }else{
         var msghtml = `
           <div class="direct-chat-msg right">
             <div class="direct-chat-infos clearfix">
@@ -120,19 +107,19 @@
               ${msg}
             </div>
           </div>`
-        }
-      console.log('메시지 수신')
-      console.log('sender: '+sender)
-    
-      // 수신된 메시지 화면에 출력
-      $("#chatbox").append(msghtml);
-      $("#scroll_area").scrollTop($("#scroll_area")[0].scrollHeight);
-      console.log("출력 완료")
-      });
-    }
-
+      };
+      console.log('메시지 수신');
+      console.log('sender: '+sender);
+        // 수신된 메시지 화면에 출력
+        $("#chatbox").append(msghtml);
+        $("#scroll_area").scrollTop($("#scroll_area")[0].scrollHeight);
+        console.log("출력 완료")
     });
+
+    };
 </script>
+
+
 </head>
 
 <body>
