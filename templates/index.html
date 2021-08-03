@@ -26,8 +26,6 @@
     // 1. 사용자 정보 입력
     if(true){
       var user=prompt('성함을 입력하세요.');
-      console.log('1. 사용자 정보 입력 완료');
-      console.log('user: '+user);
     };
 </script>
 <script type="text/javascript" charset="utf-8">
@@ -35,9 +33,7 @@
   // 2-1. url 지정
 if(true){
   var url = location.protocol+'//'+document.domain+':'+location.port+'/chatroom';
-  console.log('2-1. URL 지정 완료');
-  console.log('url: '+url);
-  console.log($('title').val);
+
       
       // 2-2. socket 인스턴스 생성
       if(true){
@@ -50,8 +46,6 @@ if(true){
       if(true){
         socket.on('connect',()=>{
           socket.emit('login',{'user':user});
-          console.log('socket 접속 성공');
-          console.log('2-3. 접속자 데이터 전송 완료');
         })};      
     };
 
@@ -61,15 +55,19 @@ if(true){
     if(true){
     socket.on('s_msg',(data)=>{
       // 메시지 수신 처리
+      var img="unknown"
       var sender = decodeURI(data.user);
       var msg = decodeURI(data.msg);
+      if (sender=='김효광'){
+        img='fox';
+      }
       if (sender != decodeURI(user)){
         var msghtml = `
           <div class="direct-chat-msg">
             <div class="direct-chat-infos clearfix">
               <span class="direct-chat-name float-left">${sender}</span>
             </div>
-            <img class="direct-chat-img" src="static/dist/img/unknown.png" alt="message user image">
+            <img class="direct-chat-img" src="static/dist/img/${img}.png" alt="message user image">
             <div class="direct-chat-text">
               ${msg}
             </div>
@@ -80,18 +78,15 @@ if(true){
             <div class="direct-chat-infos clearfix">
               <span class="direct-chat-name float-right">${sender}</span>
             </div>
-            <img class="direct-chat-img" src="static/dist/img/unknown.png" alt="message user image">
+            <img class="direct-chat-img" src="static/dist/img/${img}.png" alt="message user image">
             <div class="direct-chat-text">
               ${msg}
             </div>
           </div>`
       };
-      console.log('메시지 수신');
-      console.log('sender: '+sender);
         // 수신된 메시지 화면에 출력
         $("#chatbox").append(msghtml);
         $("#scroll_area").scrollTop($("#scroll_area")[0].scrollHeight);
-        console.log("출력 완료")
     });
 
     };
