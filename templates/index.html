@@ -4,8 +4,7 @@
 <meta charset="utf-8">
 <!-- CDN -->
   <!-- jQuery -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha512-k2WPPrSgRFI6cTaHHhJdc8kAXaRM4JBFEDo1pPGGlYiOyv4vnA0Pp0G5XMYYxgAPmtmv/IIaQA6n5fLAyJaFMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- Bootstrap 4 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.min.js" integrity="sha512-a6ctI6w1kg3J4dSjknHj3aWLEbjitAXAjLDRUxo2wyYmDFRcz2RJuQr5M3Kt8O/TtUSp8n2rAyaXYy1sjoKmrQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js" integrity="sha512-72WD92hLs7T5FAXn3vkNZflWG6pglUDDpm87TeQmfSg8KnrymL2G30R7as4FmTwhgu9H7eSzDCX3mjitSecKnw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  
@@ -32,14 +31,13 @@
     };
 </script>
 <script type="text/javascript" charset="utf-8">
-    // 2. socket 연결
-    if(true){
-      // 2-1. url 지정
-      if(true){
-        var url = location.protocol+'//'+document.domain+':'+location.port+'/chatroom';
-        console.log('2-1. URL 지정 완료');
-        console.log('url: '+url);
-      };
+// 2. socket 연결
+  // 2-1. url 지정
+if(true){
+  var url = location.protocol+'//'+document.domain+':'+location.port+'/chatroom';
+  console.log('2-1. URL 지정 완료');
+  console.log('url: '+url);
+  console.log($('title').val);
       
       // 2-2. socket 인스턴스 생성
       if(true){
@@ -56,28 +54,7 @@
           console.log('2-3. 접속자 데이터 전송 완료');
         })};      
     };
-</script>
-<script type="text/javascript" charset="utf-8">
-    if(true){
-      // 3-1. 키보드 이벤트
-      if(true){
-        $("[name=message]").on("keypress", (evt) => {
-          if (evt.keyCode == 13) {
-            var msg = encodeURI($("[name=message]").val().trim());
-            socket.emit("c_msg", { user: user, msg: msg });
-            $("[name=message]").val("");
-            console.log('키보드 프레스');
-          }})};
 
-      // 3-2. send 버튼 이벤트
-      if(true){
-        $("#send_btn").on("click", () => {
-          var msg = encodeURI($("[name=message]").val().trim());
-          socket.emit("c_msg", { user: user, msg: msg });
-          $("[name=message]").val("");
-          console.log('버튼 클릭');
-        })};
-      };
 </script>
 <script>
     // 4. 메시지 수신
@@ -160,14 +137,6 @@
         <!-- message box -->
         <div class="direct-chat-messages"  style="height: auto;">
 <span id='chatbox'>
-        <div class="direct-chat-msg">
-          <div class="direct-chat-infos clearfix">
-            <span class="direct-chat-name float-left"></span>
-          </div>
-          <img class="direct-chat-img" src="static/dist/img/unknown.png" alt="message user image">
-          <div class="direct-chat-text">
-          </div>
-        </div>
 </span>
 
       <!-- card footer -->
@@ -188,9 +157,22 @@
 
   <script>
 
+  // 3-1. 키보드 이벤트
+  $("[name=message]").on("keypress", (evt) => {
+      if (evt.keyCode == 13) {
+        var msg = encodeURI($("[name=message]").val().trim());
+        socket.emit("c_msg", { user: user, msg: msg });
+        $("[name=message]").val("");
+        console.log('키보드 프레스');
+      }});
 
-  // 4. 메시지 수신 처리    
-    
+  // 3-2. send 버튼 이벤트
+    $("#send_btn").on("click", () => {
+      var msg = encodeURI($("[name=message]").val().trim());
+      socket.emit("c_msg", { user: user, msg: msg });
+      $("[name=message]").val("");
+      console.log('버튼 클릭');
+    });
 
   </script>
 </body>
