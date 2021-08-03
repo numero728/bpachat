@@ -26,7 +26,7 @@ if True:
         REMOTE_USER         =   envs['REMOTE_USER']
         KEY_FILE            =   envs['KEY_FILE']
         REMOTE_PASSWD       =   envs['REMOTE_PASSWD']
-        REMOTE_PORT         =   envs['REMOTE_PORT']
+        # REMOTE_PORT         =   envs['REMOTE_PORT']
 
     # -------------------------------------------------------------------
     # 환경변수 설정
@@ -36,7 +36,7 @@ if True:
         env.use_ssh_config  =   True
         env.key_filename    =   os.path.join('..',KEY_FILE)
         env.password        =   REMOTE_PASSWD
-        env.port            =   REMOTE_PORT
+        # env.port            =   REMOTE_PORT
 
     # -------------------------------------------------------------------
     # 원격지의 프로젝트 폴더 주소 설정
