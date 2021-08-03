@@ -55,19 +55,24 @@ if(true){
     if(true){
     socket.on('s_msg',(data)=>{
       // 메시지 수신 처리
-      var img="unknown"
+      var ico=data.ico;
+      var emo=data.emo;
+      console.log(emo)
       var sender = decodeURI(data.user);
       var msg = decodeURI(data.msg);
       if (sender=='김효광'){
-        img='fox';
-      }
+        ico='cry';
+      };
+      if (emo!='none'){
+        msg=`<img src="static/dist/img/${emo}.png" width="350" height="350" alt="emoticon">`
+      };
       if (sender != decodeURI(user)){
         var msghtml = `
           <div class="direct-chat-msg">
             <div class="direct-chat-infos clearfix">
               <span class="direct-chat-name float-left">${sender}</span>
             </div>
-            <img class="direct-chat-img" src="static/dist/img/${img}.png" alt="message user image">
+            <img class="direct-chat-img" src="static/dist/img/${ico}.png" alt="message user image">
             <div class="direct-chat-text">
               ${msg}
             </div>
@@ -78,7 +83,7 @@ if(true){
             <div class="direct-chat-infos clearfix">
               <span class="direct-chat-name float-right">${sender}</span>
             </div>
-            <img class="direct-chat-img" src="static/dist/img/${img}.png" alt="message user image">
+            <img class="direct-chat-img" src="static/dist/img/${ico}.png" alt="message user image">
             <div class="direct-chat-text">
               ${msg}
             </div>

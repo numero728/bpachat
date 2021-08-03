@@ -12,6 +12,7 @@ if True:
     app = Flask(__name__)
     app.jinja_env.add_extension('jinja2.ext.loopcontrols')
     app.config['SECRET_KEY'] = 'BPA_chat'
+    emo_keys=['angry','cry','none','고기','민초','밥','배포안됨','집가고싶다','치킨','클남','퇴근','호떡']
 
 # socketio 통신 관련
 if True:
@@ -19,13 +20,13 @@ if True:
     
     @socketio.on('connect',namespace='/chatroom')
     def connect():
-        value={'user':'system','msg':'정상적으로 접속되었습니다.',}
+        value={'user':'system','msg':'정상적으로 접속되었습니다.','ico':'fox','emo':'none'}
         emit('s_msg',value)
 
     @socketio.on('login')
     def login(data):
         user=data['user']
-        value={'user':'system','msg':f'{user}님 환영합니다.'}
+        value={'user':'system','msg':f'{user}님 환영합니다.','ico':'fox','emo':'none'}
         emit('s_msg',value)
         
     @socketio.on('c_msg')
@@ -33,7 +34,19 @@ if True:
         user=data['user']
         msg=data['msg']
         now=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        emit('s_msg', {'user': user, 'msg': msg}, broadcast=True)
+        raw_msg=unquote(msg)
+        if raw_msg=='이모티콘 리스트':
+            emit('s_msg',{'user':'system','msg':' | '.join(emo_keys),'ico':'fox','emo':'none'})
+        else:
+            if '[이모티콘]' in raw_msg:
+                for emo in emo_keys:
+                    if emo in raw_msg:
+                        emit('s_msg',{'user':user,'msg':'이모티콘','ico':'none','emo':emo},broadcast=True)
+                        break
+                    else:
+                        continue
+            else:
+                emit('s_msg', {'user': user, 'msg': msg,'ico':'none','emo':'none'},broadcast=True)
 
     @socketio.on('disconnect')
     def disconnect():
