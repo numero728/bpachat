@@ -12,7 +12,7 @@ if True:
     app = Flask(__name__)
     app.jinja_env.add_extension('jinja2.ext.loopcontrols')
     app.config['SECRET_KEY'] = 'BPA_chat'
-    emo_keys=['angry','cry','none','고기','민초','밥','배포안됨','집가고싶다','치킨','클남','퇴근','호떡']
+    emo_keys=['angry','cry','none','steak','mint','lunch','turn','home1','chicken','damn','home2','siba']
 
 # socketio 통신 관련
 if True:
