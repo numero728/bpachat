@@ -17,7 +17,7 @@ if True:
 if True:
     socketio = SocketIO(app, cors_allowed_origins='*',pingInterval=600000, pingTimeout=600000)
     
-    @socketio.on('connect')
+    @socketio.on('connect',namespace='/chatroom')
     def connect():
         value={'user':'system','msg':'정상적으로 접속되었습니다.'}
         emit('s_msg',value)
