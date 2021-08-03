@@ -15,7 +15,7 @@ if True:
 
 # socketio 통신 관련
 if True:
-    socketio = SocketIO(app, cors_allowed_origins='*',pingInterval=600000, pingTimeout=600000)
+    socketio = SocketIO(app, cors_allowed_origins='*',async_mode='gevent')
     
     @socketio.on('connect',namespace='/chatroom')
     def connect():
