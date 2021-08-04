@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<!-- CDN -->
+  <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha512-k2WPPrSgRFI6cTaHHhJdc8kAXaRM4JBFEDo1pPGGlYiOyv4vnA0Pp0G5XMYYxgAPmtmv/IIaQA6n5fLAyJaFMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- Bootstrap 4 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.min.js" integrity="sha512-a6ctI6w1kg3J4dSjknHj3aWLEbjitAXAjLDRUxo2wyYmDFRcz2RJuQr5M3Kt8O/TtUSp8n2rAyaXYy1sjoKmrQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js" integrity="sha512-72WD92hLs7T5FAXn3vkNZflWG6pglUDDpm87TeQmfSg8KnrymL2G30R7as4FmTwhgu9H7eSzDCX3mjitSecKnw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  
+  <!-- socketio -->
+
+  <!-- meta -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+<!-- style -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css" integrity="sha512-8vq2g5nHE062j3xor4XxPeZiPjmRDh6wlufQlfC6pdQ/9urJkU07NM0tEREeymP++NczacJ/Q59ul+/K2eYvcg==" crossorigin="anonymous" referrerpolicy="no-referrer" />  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/css/adminlte.min.css" integrity="sha512-mxrUXSjrxl8vm5GwafxcqTrEwO1/oBNU25l20GODsysHReZo4uhVISzAKzaABH6/tTfAxZrY2FprmeAP5UZY8A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- title -->
+  <title>TEST PROJECT</title>
+</head>
+
+<body>
+
+
+
+  <!-- container -->
+  <div class='container-fluid col-md-12'>
+
+    <!-- container header -->
+    <div class='content_header d-flex justify-content-center'>
+      <div class="login-logo">
+        <!-- 버전 정의 -->
+
+        <b style="color: brown; font-family: HANNA;">BPA 인턴</b></a>
+      </div>    
+    </div>
+
+    <!-- card -->
+    <div class="card direct-chat d-flex justify-content-center col-md-9 mx-auto">
+      
+      <!-- card header -->
+      <div class="card-header ">
+        <form action = "http://localhost:5000/drive" method = "POST" 
+        enctype = "multipart/form-data">
+        <input type = "file" name = "file" />
+        <input type = "submit"/>
+     </form>           
+        <!-- stop keyword button -->
+
+      </div>
+
+      <!-- card body -->
+      <div class="card-body" id="scroll_area" style="height: 500px;scroll-behavior:smooth">
+        <!-- message box -->
+        <div class="direct-chat-messages"  style="height: auto;">
+<span id='chatbox'>
+</span>
+
+      <!-- card footer -->
+      {%for file in filelist%}
+      <div class="card-footer">
+        {{file}}
+      </div>
+      {%endfor%}
+    </div>
+
+  </div>
+
+  <script>
+
+  // 3-1. 키보드 이벤트
+  $("[name=message]").on("keypress", (evt) => {
+      if (evt.keyCode == 13) {
+        var msg = encodeURI($("[name=message]").val().trim());
+        socket.emit("c_msg", { user: user, msg: msg });
+        $("[name=message]").val("");
+        console.log('키보드 프레스');
+      }});
+
+  // 3-2. send 버튼 이벤트
+    $("#send_btn").on("click", () => {
+      var msg = encodeURI($("[name=message]").val().trim());
+      socket.emit("c_msg", { user: user, msg: msg });
+      $("[name=message]").val("");
+      console.log('버튼 클릭');
+    });
+
+  </script>
+</body>
+
+</html>

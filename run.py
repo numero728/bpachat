@@ -1,6 +1,6 @@
 ﻿from flask import Flask, render_template,request,flash,jsonify
 from flask_socketio import SocketIO, emit
-from werkzeug.utils import redirect
+from werkzeug.utils import redirect,secure_filename
 import re
 import os
 from datetime import datetime
@@ -57,6 +57,20 @@ if True:
 def chat():
     now=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     return render_template('index.html')
+
+@app.route('/log')
+def log():
+    return 'hello'
+
+@app.route('/drive',methods=['GET','POST'])
+def drive():
+    if request.method=='POST':
+        f=request.files['file']
+        f.save(secure_filename(f.filename))
+        return redirect('/drive')
+    else:
+        file_list=os.listdir(os.path.join('static','uploaded'))
+        return render_template('drive.html',file_list=file_list)
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)
