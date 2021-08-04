@@ -70,8 +70,11 @@ def log():
 def drive():
     if request.method=='POST':
         f=request.files['file']
-        f.save(secure_filename(f.filename))
-        return redirect(url_for('drive'))
+        try:
+            f.save(secure_filename(f.filename))
+            return redirect(url_for('drive'))
+        except Exception as e:
+            return e
     else:
         file_list=[]
         return render_template('drive.html',file_list=file_list)
