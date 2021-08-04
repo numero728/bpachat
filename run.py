@@ -64,13 +64,13 @@ def log():
 
 @app.route('/drive',methods=['GET','POST'])
 def drive():
-    if request.method=='POST':
-        f=request.files['file']
-        f.save(secure_filename(f.filename))
-        return redirect(url_for('drive'))
-    else:
-        file_list=[]
-        return render_template('drive.html',file_list=file_list)
+    # if request.method=='POST':
+    #     f=request.files['file']
+    #     f.save(secure_filename(f.filename))
+    #     return redirect(url_for('drive'))
+    # else:
+    file_list=[]
+    return render_template('drive.html',file_list=file_list)
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)
