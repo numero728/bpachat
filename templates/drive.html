@@ -44,7 +44,7 @@
       
       <!-- card header -->
       <div class="card-header ">
-        <form action = "http://localhost:5000/drive" method = "POST" 
+        <form action = "{{url_for('drive')}}" method = "POST" 
         enctype = "multipart/form-data">
         <input type = "file" name = "file" />
         <input type = "submit"/>
