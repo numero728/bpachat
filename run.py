@@ -1,4 +1,4 @@
-﻿from flask import Flask, render_template,request,flash,jsonify
+﻿from flask import Flask, render_template,request,flash,jsonify,url_for
 from flask_socketio import SocketIO, emit
 from werkzeug.utils import redirect,secure_filename
 import re
@@ -64,15 +64,13 @@ def log():
 
 @app.route('/drive',methods=['GET','POST'])
 def drive():
-    try:
-        if request.method=='POST':
-            f=request.files['file']
-            f.save(secure_filename(f.filename))
-            return redirect('/drive')
-        else:
-            file_list=os.listdir(os.path.join('static','uploaded'))
-            return render_template('drive.html',file_list=file_list)
-    except Exception as e:
-        return e
+    if request.method=='POST':
+        f=request.files['file']
+        f.save(secure_filename(f.filename))
+        return redirect(url_for('drive'))
+    else:
+        file_list=[]
+        return render_template('drive.html',file_list=file_list)
+
 if __name__ == '__main__':
     socketio.run(app, debug=True)
