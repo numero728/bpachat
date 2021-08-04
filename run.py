@@ -13,7 +13,11 @@ if True:
     app.jinja_env.add_extension('jinja2.ext.loopcontrols')
     app.config['SECRET_KEY'] = 'BPA_chat'
     emo_keys=['angry','cry','none','steak','mint','lunch','turn','home1','chicken','damn','home2','siba']
+    UPLOAD_FOLDER = '/static/uploaded'
+    ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','xlsx','xls','csv','hwp','doc','docx','ppt','pptx'}
 
+app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # socketio 통신 관련
 if True:
     socketio = SocketIO(app, cors_allowed_origins='*',async_mode='threading')
@@ -65,7 +69,7 @@ def log():
 @app.route('/drive',methods=['GET','POST'])
 def drive():
     if request.method=='POST':
-    #     f=request.files['file']
+        f=request.files['file']
     #     f.save(secure_filename(f.filename))
         return redirect(url_for('drive'))
     else:
