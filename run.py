@@ -70,7 +70,7 @@ def log():
 def drive():
     if request.method=='POST':
         f=request.files['file']
-    #     f.save(secure_filename(f.filename))
+        f.save(secure_filename(f.filename))
         return redirect(url_for('drive'))
     else:
         file_list=[]
