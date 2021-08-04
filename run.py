@@ -71,7 +71,7 @@ def drive():
     if request.method=='POST':
         f=request.files['file']
         try:
-            f.save(secure_filename(f.filename))
+            f.save(os.path.join(app.config['UPLOAD_FOLDER'],f.filename))
             return redirect(url_for('drive'))
         except Exception as e:
             return e
