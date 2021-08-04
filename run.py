@@ -44,9 +44,10 @@ def chat():
     now=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     return render_template('index.html')
 
-@app.route('/log')
-def logpage():
+@app.route('/drive')
+def drive():
     now=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    file_list=os.listdir(os.path.join('static','upload'))
     return now
 
 if __name__ == '__main__':
