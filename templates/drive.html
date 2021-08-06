@@ -48,7 +48,7 @@
         enctype = "multipart/form-data">
         <input type = "file" name = "file" />
         <input type = "submit"/>
-     </form>           
+        </form>           
         <!-- stop keyword button -->
 
       </div>
@@ -70,26 +70,6 @@
 
   </div>
 
-  <script>
-
-  // 3-1. 키보드 이벤트
-  $("[name=message]").on("keypress", (evt) => {
-      if (evt.keyCode == 13) {
-        var msg = encodeURI($("[name=message]").val().trim());
-        socket.emit("c_msg", { user: user, msg: msg });
-        $("[name=message]").val("");
-        console.log('키보드 프레스');
-      }});
-
-  // 3-2. send 버튼 이벤트
-    $("#send_btn").on("click", () => {
-      var msg = encodeURI($("[name=message]").val().trim());
-      socket.emit("c_msg", { user: user, msg: msg });
-      $("[name=message]").val("");
-      console.log('버튼 클릭');
-    });
-
-  </script>
 </body>
 
 </html>
