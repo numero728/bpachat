@@ -71,9 +71,9 @@ def drive():
     if request.method=='POST':
         f=request.files['file']
         f_path=(os.path.join(app.config['UPLOAD_FOLDER'],f.filename))
-        # with open('log.txt','w') as fp:
-        #     print(f_path)
-        return redirect(url_for('drive'))
+        with open('log.txt','w') as fp:
+            print(f_path)
+        return flash('파일 전송 성공')
 
     else:
         file_list=[]

@@ -205,7 +205,7 @@ def _make_virtualhost():
 def _grant_apache2():
     # PROJECT_NAME 디렉토리의 소유권 www-data로 이전
     # www-data: 아파치 데몬(웹사이트 구동하는 owner)
-    sudo(f'chown -R :www-data ~/{PROJECT_NAME}'))
+    sudo(f'chown -R :www-data ~/{PROJECT_NAME}')
     sudo(f'chown -R :www-data /var/www')
     
     # PROJECT_NAME의 권한 조정
