@@ -66,18 +66,17 @@ def chat():
 def log():
     return 'hello'
 
-@app.route('/drive',methods=['GET','POST'])
+@app.route('/drive')
 def drive():
-    if request.method=='POST':
-        f=request.files['file']
-        f_path=(os.path.join(app.config['UPLOAD_FOLDER'],f.filename))
-        with open('log.txt','w') as fp:
-            print(f_path)
-        return flash('파일 전송 성공')
+    file_list=[]
+    return render_template('drive.html',file_list=file_list)
 
-    else:
-        file_list=[]
-        return render_template('drive.html',file_list=file_list)
+@app.route('/upload',methods=['POST'])
+def upload():
+    file=request.files['file']
+    return "file uploaded"
+    #file.save(os.path.join(app.config['UPLOAD_FOLDER'],file.filename))
+    # return redirect('/drive')
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)
