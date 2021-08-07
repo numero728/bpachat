@@ -156,7 +156,7 @@ def _make_virtualenv():
         script = '''"# python virtualenv settings
                     export WORKON_HOME=~/.virtualenvs
                     export VIRTUALENVWRAPPER_PYTHON="$(command \\which python3)"  # location of python3
-                    export APACHE_LOG_DIR=/home/khk/
+                    export APACHE_LOG_DIR=/home/bpa/log
                     source /usr/local/bin/virtualenvwrapper.sh"'''
         
         # .bashrc 수정
