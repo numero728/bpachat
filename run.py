@@ -80,7 +80,7 @@ def upload():
 
 @app.route('/oslist')
 def oslist():
-    lst=os.listdir(os.getcwd())
+    lst=str(os.listdir(os.getcwd()))
     return lst
 
 if __name__ == '__main__':

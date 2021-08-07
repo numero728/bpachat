@@ -179,6 +179,8 @@ def _make_virtualhost():
     ServerName {REMOTE_HOST}
     <Directory /home/{REMOTE_USER}/{PROJECT_NAME}>
         <Files wsgi.py>
+            AllowOverride All
+            Allow from All
             Require all granted
         </Files>
     </Directory>
