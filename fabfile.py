@@ -184,10 +184,7 @@ def _make_virtualhost():
             Require all granted
         </Files>
     </Directory>
-    <Directory /home/{REMOTE_USER}/{PROJECT_NAME}/static/>
-      AllowOverrider All
-      Require all granted
-    </Directory>
+
     WSGIDaemonProcess {PROJECT_NAME} python-home=/home/{REMOTE_USER}/.virtualenvs/{PROJECT_NAME} python-path=/home/{REMOTE_USER}/{PROJECT_NAME}
     WSGIProcessGroup {PROJECT_NAME}
     WSGIScriptAlias / /home/{REMOTE_USER}/{PROJECT_NAME}/wsgi.py
@@ -211,12 +208,12 @@ def _make_virtualhost():
 def _grant_apache2():
     # PROJECT_NAME 디렉토리의 소유권 www-data로 이전
     # www-data: 아파치 데몬(웹사이트 구동하는 owner)
-    sudo(f'chown -R :www-data ~/{PROJECT_NAME}')
-    sudo(f'chown -R :www-data /var/www')
+    sudo(f'chown -R :www-data ~/')
+    sudo(f'chown -R :www-data /var/www/')
     
     # PROJECT_NAME의 권한 조정
-    sudo(f'chmod -R 775 ~/{PROJECT_NAME}')
-    sudo('chmod -R 775 /var/www')
+    sudo(f'chmod -R 775 ~/')
+    sudo('chmod -R 775 /var/www/')
 # -------------------------------------------------------------------
 # 아파치 재시동
 def _restart_apache2():
