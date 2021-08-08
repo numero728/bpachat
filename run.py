@@ -76,6 +76,8 @@ def upload():
     file=request.files['file']
     file_path= os.path.join(app.config['UPLOAD_FOLDER'],file.filename)
     file.save(file_path)
+    with open('test.txt','w') as fp:
+        fp.write('12345678 | 파일 테스트')
     return redirect('/drive')
 
 
