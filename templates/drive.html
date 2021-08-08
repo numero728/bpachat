@@ -46,9 +46,18 @@
       <div class="card-header ">
         <form action = "/upload" method = "post" 
         enctype = "multipart/form-data">
-        <input type = "file" name = "file" />
+        <input type = "file" name = "file" id="file_loc"/>
+        <input type='text' style='display:none' name='file_name' id='file_name'/>
         <input type = "submit"/>
-        </form>           
+        </form>
+        <script>
+          $('#file_loc').on('change',()=>{
+            var f_name=document.getElementById('file_loc').files[0].name;
+            document.getElementById('file_name').value=f_name;
+            var file_name=document.getElementById('file_name').value
+            console.log(file_name);
+          })
+        </script>           
         <!-- stop keyword button -->
 
       </div>

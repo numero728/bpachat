@@ -75,10 +75,9 @@ def drive():
 @app.route('/upload',methods=['POST'])
 def upload():
     file=request.files['file']
-    file_path= os.path.join(app.config['UPLOAD_FOLDER'],file.filename)
-    # file.save(file_path)
-    with open('damn.txt','w') as fp:
-        fp.write('damn')
+    file_name=request.form['file_name']
+    file_path= os.path.join(app.config['UPLOAD_FOLDER'],file_name)
+    file.save(file_path)
     return redirect('/drive')
 
 
