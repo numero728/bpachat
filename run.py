@@ -74,11 +74,9 @@ def drive():
 @app.route('/upload',methods=['POST'])
 def upload():
     file=request.files['file']
-    try:
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'],file.filename))
-        return redirect('/drive')
-    except Exception as e:
-        return e
+    file.save(os.path.join(app.config['UPLOAD_FOLDER'],file.filename))
+    return redirect('/drive')
+
 
 
 if __name__ == '__main__':
