@@ -76,6 +76,7 @@ def upload():
     file=request.files['file']
     file_path= os.path.join(app.config['UPLOAD_FOLDER'],file.filename)
     file_path=file_path.encode('utf-8')
+    file_path=file_path.decode('ascii')
     file.save(file_path)
     return redirect('/drive')
 
