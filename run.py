@@ -1,4 +1,5 @@
-﻿from flask import Flask, render_template,request,flash,jsonify,url_for
+﻿#-*- coding: utf-8 -*-
+from flask import Flask, render_template,request,flash,jsonify,url_for
 from flask_socketio import SocketIO, emit
 from werkzeug.utils import redirect,secure_filename
 import re
