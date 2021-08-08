@@ -184,12 +184,16 @@ def _make_virtualhost():
             Require all granted
         </Files>
     </Directory>
+    <Directory /home/{REMOTE_USER}/{PROJECT_NAME}/static/>
+      AllowOverrider All
+      Require all granted
+    </Directory>
     WSGIDaemonProcess {PROJECT_NAME} python-home=/home/{REMOTE_USER}/.virtualenvs/{PROJECT_NAME} python-path=/home/{REMOTE_USER}/{PROJECT_NAME}
     WSGIProcessGroup {PROJECT_NAME}
     WSGIScriptAlias / /home/{REMOTE_USER}/{PROJECT_NAME}/wsgi.py
     
-    ErrorLog ${{APACHE_LOG_DIR}}/error.log
-    CustomLog ${{APACHE_LOG_DIR}}/access.log combined
+    ErrorLog /home/bpa/log/error.log
+    CustomLog /home/bpa/log/access.log combined
     
     </VirtualHost>'"""
 
