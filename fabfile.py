@@ -35,7 +35,7 @@ if True:
         env.user            =   REMOTE_USER
         env.hosts           =   [REMOTE_HOST_SSH]
         env.use_ssh_config  =   True
-        env.key_filename    =   os.path.join('..',KEY_FILE)
+        env.key_filename    =   os.path.join(KEY_FILE)
         env.password        =   REMOTE_PASSWD
         # env.port            =   REMOTE_PORT
 
@@ -100,6 +100,11 @@ def deploy():
     print('update virtualenv done...')
     print('\n'*3)
 
+    _log()
+    print('\n'*3)
+    print('log dir...')
+    print('\n'*3)
+
     _make_virtualhost()
     print('\n'*3)
     print('make virtualhost done...')
@@ -156,7 +161,7 @@ def _make_virtualenv():
         script = '''"# python virtualenv settings
                     export WORKON_HOME=~/.virtualenvs
                     export VIRTUALENVWRAPPER_PYTHON="$(command \\which python3)"  # location of python3
-                    export APACHE_LOG_DIR=/home/bpa/log
+                    export APACHE_LOG_DIR=/var/www/log
                     source /usr/local/bin/virtualenvwrapper.sh"'''
         
         # .bashrc 수정
@@ -172,9 +177,19 @@ def _ufw_allow():
     sudo("ufw reload")
 
 # -------------------------------------------------------------------
+# 로그 디렉토리 유무 확인
+def _log():
+    if exists('/home/bpa/log'):
+        print('log exists...')
+    else:
+        run('mkdir /home/bpa/log')
+        print('make log')
+
+# -------------------------------------------------------------------
 # 아파치 서버 환경 설정
 def _make_virtualhost():
     # apache2 conf 설정할 내용
+    APACHE_LOGDIR="{APACHE_LOG_DIR}"
     script = f"""'<VirtualHost *:80>
     ServerName {REMOTE_HOST}
     <Directory /home/{REMOTE_USER}/{PROJECT_NAME}>
@@ -188,9 +203,8 @@ def _make_virtualhost():
     WSGIDaemonProcess {PROJECT_NAME} python-home=/home/{REMOTE_USER}/.virtualenvs/{PROJECT_NAME} python-path=/home/{REMOTE_USER}/{PROJECT_NAME}
     WSGIProcessGroup {PROJECT_NAME}
     WSGIScriptAlias / /home/{REMOTE_USER}/{PROJECT_NAME}/wsgi.py
-    
-    ErrorLog /home/bpa/log/error.log
-    CustomLog /home/bpa/log/access.log combined
+    ErrorLog /var/www/log/error.log
+    CustomLog /var/www/log/access.log combined
     
     </VirtualHost>'"""
 
@@ -208,12 +222,12 @@ def _make_virtualhost():
 def _grant_apache2():
     # PROJECT_NAME 디렉토리의 소유권 www-data로 이전
     # www-data: 아파치 데몬(웹사이트 구동하는 owner)
-    sudo(f'chown -R :www-data ~/')
+    sudo(f'chown -R :www-data /home/{REMOTE_USER}/')
     sudo(f'chown -R :www-data /var/www/')
     
     # PROJECT_NAME의 권한 조정
-    sudo(f'chmod -R 775 ~/')
-    sudo('chmod -R 775 /var/www/')
+    sudo(f'chmod -R 777 /home/{REMOTE_USER}/')
+    sudo('chmod -R 777 /var/www/')
 # -------------------------------------------------------------------
 # 아파치 재시동
 def _restart_apache2():

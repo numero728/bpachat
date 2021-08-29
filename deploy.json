@@ -4,7 +4,7 @@
   "REMOTE_HOST":"118.67.129.40",
   "REMOTE_HOST_SSH":"118.67.129.40",
   "REMOTE_USER":"bpa",
-  "KEY_FILE":"bpachat.pem",
+  "KEY_FILE":"bpa_key.pem",
   "REMOTE_PASSWD":"0000"
 }
 
