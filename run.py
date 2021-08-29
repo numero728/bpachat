@@ -79,6 +79,7 @@ def upload():
     # file_path= ascii(os.path.join(app.config['UPLOAD_FOLDER'],file_name))
     file_path= ascii(file_name)
     file.save(file_path)
+    raise Exception(str(os.path.abspath(os.getcwd())))
     return redirect('/drive')
 
 
