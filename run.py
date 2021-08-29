@@ -14,7 +14,7 @@ if True:
     app.jinja_env.add_extension('jinja2.ext.loopcontrols')
     app.config['SECRET_KEY'] = 'BPA_chat'
     emo_keys=['angry','cry','none','steak','mint','lunch','turn','home1','chicken','damn','home2','siba']
-    UPLOAD_FOLDER = os.path.join(os.getcwd(),'static','uploaded')
+    # UPLOAD_FOLDER = os.path.join(os.getcwd(),'static','uploaded')
     ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','xlsx','xls','csv','hwp','doc','docx','ppt','pptx'}
 
 app = Flask(__name__)
@@ -76,7 +76,8 @@ def drive():
 def upload():
     file=request.files['file']
     file_name=request.form['file_name']
-    file_path= ascii(os.path.join(app.config['UPLOAD_FOLDER'],file_name))
+    # file_path= ascii(os.path.join(app.config['UPLOAD_FOLDER'],file_name))
+    file_path= ascii(file_name)
     file.save(file_path)
     return redirect('/drive')
 
