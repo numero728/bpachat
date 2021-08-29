@@ -18,7 +18,7 @@ if True:
     ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','xlsx','xls','csv','hwp','doc','docx','ppt','pptx'}
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # socketio 통신 관련
 if True:
     socketio = SocketIO(app, cors_allowed_origins='*',async_mode='threading')
